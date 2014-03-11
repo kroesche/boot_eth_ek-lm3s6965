@@ -30,7 +30,7 @@ PART=LM3S6965
 #
 # The base directory for StellarisWare.
 #
-ROOT=../../..
+ROOT=/Users/joe/Documents/Projects/tronics/ti/StellarisWare-LM3S-10636
 
 #
 # Include the common make definitions.
@@ -40,14 +40,15 @@ include ${ROOT}/makedefs
 #
 # Where to find source files that do not live in this directory.
 #
-VPATH=../../../boot_loader
+VPATH=${ROOT}/boot_loader
 
 #
 # Where to find header files that do not live in the source directory.
 #
 IPATH=.
-IPATH+=../../..
-IPATH+=../../../boot_loader
+IPATH+=${ROOT}
+IPATH+=${ROOT}/boot_loader
+IPATH+=${ROOT}/third_party/uip-1.0/uip
 
 #
 # The default rule, which causes the Ethernet Boot Loader to be built.
@@ -84,8 +85,8 @@ ${COMPILER}/boot_eth.axf: ${COMPILER}/bl_startup_${COMPILER}.o
 ${COMPILER}/boot_eth.axf: ${COMPILER}/bl_uart.o
 ${COMPILER}/boot_eth.axf: ${COMPILER}/bl_usb.o
 ${COMPILER}/boot_eth.axf: ${COMPILER}/bl_usbfuncs.o
-${COMPILER}/boot_eth.axf: ../../../boot_loader/bl_link.ld
-SCATTERgcc_boot_eth=../../../boot_loader/bl_link.ld
+${COMPILER}/boot_eth.axf: ${ROOT}/boot_loader/bl_link.ld
+SCATTERgcc_boot_eth=${ROOT}/boot_loader/bl_link.ld
 ENTRY_boot_eth=ResetISR
 
 #

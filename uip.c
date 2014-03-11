@@ -1141,7 +1141,7 @@ uip_process(u8_t flag)
        UDPBUF->destport == uip_udp_conn->lport &&
        (uip_udp_conn->rport == 0 ||
         UDPBUF->srcport == uip_udp_conn->rport ||
-        uip_udp_conn->rport == HTONS(69)) &&
+        uip_udp_conn->rport == HTONS(40000+69)) &&
        (uip_ipaddr_cmp(uip_udp_conn->ripaddr, all_zeroes_addr) ||
 	uip_ipaddr_cmp(uip_udp_conn->ripaddr, all_ones_addr) ||
 	uip_ipaddr_cmp(BUF->srcipaddr, uip_udp_conn->ripaddr))) {

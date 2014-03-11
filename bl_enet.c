@@ -137,7 +137,7 @@ my_memcpy(void *pvDest, const void *pvSrc, size_t lLength)
 #include "third_party/uip-1.0/uip/pt.h"
 #include "third_party/uip-1.0/uip/uip_arp.c"
 #undef BUF
-#include "third_party/uip-1.0/uip/uip.c"
+#include "uip.c" // JLK - use the local copy which has been edited
 
 //*****************************************************************************
 //
@@ -273,15 +273,17 @@ tBOOTPPacket;
 // The UDP ports used by the BOOTP protocol.
 //
 //*****************************************************************************
-#define BOOTP_SERVER_PORT       67
-#define BOOTP_CLIENT_PORT       68
+#define PORT_OFFSET             40000 // JLK
+
+#define BOOTP_SERVER_PORT       (67 + PORT_OFFSET)
+#define BOOTP_CLIENT_PORT       (68 + PORT_OFFSET)
 
 //*****************************************************************************
 //
 // The UDP port for the TFTP server.
 //
 //*****************************************************************************
-#define TFTP_PORT               69
+#define TFTP_PORT               (69 + PORT_OFFSET)
 
 //*****************************************************************************
 //
@@ -1286,7 +1288,7 @@ ConfigureEnet(void)
     //
     HWREG(ETH_BASE + MAC_O_TCTL) = (MAC_TCTL_DUPLEX | MAC_TCTL_CRC |
                                     MAC_TCTL_PADEN | MAC_TCTL_TXEN);
-    HWREG(ETH_BASE + MAC_O_RCTL) = (MAC_RCTL_RSTFIFO | MAC_RCTL_BADCRC |
+    HWREG(ETH_BASE + MAC_O_RCTL) = (MAC_RCTL_RSTFIFO | /*MAC_RCTL_BADCRC |*/
                                     MAC_RCTL_AMUL | MAC_RCTL_RXEN);
 }
 
